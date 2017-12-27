@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\snakeclient.c" />
     <ClCompile Include="..\snakeserver.c" />
+    <ClCompile Include="snake_offline.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
