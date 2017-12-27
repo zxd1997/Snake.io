@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\snakeclient.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\snakeserver.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="snake_offline.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="snakeclient.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="snakeserver.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
