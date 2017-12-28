@@ -80,7 +80,7 @@ int make_server_socket(int port)
 }
 void game(int fd)
 {
-	int headx = 0, heady = 0, h = 0, t = 0, dir, i, score = 0, live = 1,j;
+	int headx = 0, heady = 0, h = 0, t = 0, dir, i, live = 1,j;
 	int bodyx[100], bodyy[100];
 	int mapp[length][width];
 	srand((int)time(0));
@@ -108,7 +108,6 @@ void game(int fd)
 	{
 		int i,j;
 		c = fgetc(f);
-		printf("\033[41;0H%c", c); fflush(stdout);
 		if (c != 'a' && c != 'd' && c != 'w') continue;
 		switch (c)
 		{
@@ -131,11 +130,12 @@ void game(int fd)
 		pthread_mutex_lock(&mutex);
 		if (map[headx][heady] == 1)
 		{
-			for (i = h; i <=t-1; i++)
+			int hh = h;
+			while (hh != t)
 			{
-				map[bodyx[i]][bodyy[i]] = 0;
-				printf("\033[%d;%dH ", bodyx[i], bodyy[i]);
-				fflush(stdout);
+				mapp[bodyx[hh]][bodyy[hh]] = 0; 
+				printf("\033[%d;%dH ", bodyx[hh], bodyy[hh]); fflush(stdout);
+				hh++; if (hh == 100)hh = 0;
 			}
 			live = 0;
 			fprintf(ff, "%d", live); fflush(ff);
@@ -144,13 +144,12 @@ void game(int fd)
 			return;
 		}
 		bodyx[t] = headx; bodyy[t] = heady;
+		printf("\033[%d;%dH*", headx, heady);
 		map[bodyx[t]][bodyy[t]] = 1;
 		fflush(stdout);
-		printf("\033[%d;%dH*", headx, heady);
 		t++; if (t == 100) t = 0;
 		if (headx == seedx && heady == seedy)
 		{
-			score++;
 			map[seedx][seedy] = 1;
 			generate(&seedx, &seedy);
 			map[seedx][seedy] = 3;
